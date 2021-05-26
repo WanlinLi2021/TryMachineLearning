@@ -1,0 +1,165 @@
+---
+title: "QSAR_projet: Exploratory data analysis"
+author: Douja; Wanlin
+date: "2020/12/2"
+output: html_document
+---
+
+
+## Load packages
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(statsr)
+library(caret)
+library(corrr)
+```
+
+
+## Load data
+
+
+```{r}
+dataWhole <- read.csv("Last-310Descriptors_all_diversifier_3.csv",sep = ";")
+tail(dataWhole)
+```
+
+
+## Part 1: Data
+
+
+## Part 2: Research question
+
+
+## Part 3: Exploratory data analysis
+
+```{r}
+#check for missing values
+
+any(is.na(dataWhole))
+#colSums(is.na(dataWhole))
+#all(colSums(is.na(dataWhole))==0)
+```
+
+```{r}
+descripteurs <- dataWhole[, -which(names(dataWhole) %in% c('Ratios.Ln','Ratios'))]
+head(descripteurs)
+```
+
+
+
+```{r}
+# drop variables with zero variation (unary)
+discrip1 <- descripteurs[-(which(apply(descripteurs,2,var)==0))]
+head(discrip1)
+#dim(data1)
+```
+
+```{r}
+#columns to remove to reduce pair-wise correlations.
+correlationParfaite <- findCorrelation(cor(discrip1),
+  cutoff = 0.75,
+  names = FALSE
+)
+#correlationParfaite
+
+length(correlationParfaite)
+```
+
+
+```{r}
+# drop pairwise correlations
+discrip2 <- discrip1[,-correlationParfaite]
+head(discrip2)
+```
+
+** R has a function stepAIC from the MASS package that will work backwards through the model space, removing variables until the AIC score can be no longer lowered. It takes all inputs in the full model, and a penalty parameter k. The default setting is k=2 for the AIC score. 
+
+```{r}
+library(MASS)
+```
+
+```{r}
+Ratios_ln = dataWhole$Ratios.Ln
+m_rations_ln <- lm(Ratios_ln ~., data = discrip2)
+elimination_backwards <- stepAIC(m_rations_ln, direction = "backward")
+#elimination_backwards
+```
+
+```{r}
+df= as.data.frame(elimination_backwards[1])
+df
+
+```
+
+
+```{r}
+row.names(df)
+```
+```{r}
+length(row.names(df))
+```
+
+```{r}
+as.vector(row.names(df))[2:50]
+```
+
+
+```{r}
+discrip3 <- dataWhole[as.vector(row.names(df))[2:50]]
+head(discrip3)
+```
+
+```{r}
+data_tidy <- cbind(discrip3,Ratios_ln)
+head(data_tidy)
+```
+
+## Part 4: Exploratory data analysis
+
+
+```{r}
+dim(data_tidy)
+```
+
+```{r}
+write.csv(data_tidy,"fromR_datatidy_with_y.csv", row.names = FALSE)
+```
+
+
+```{r}
+ggplot(data = data_tidy, aes(a_base, Ratios_ln)) + geom_point()
+
+```
+
+
+
+```{r}
+columns=list(names(data_tidy))
+columns[[1]]
+```
+
+
+```{r}
+columns[[1]][1:69]
+```
+
+
+```{r}
+str(data_tidy)
+```
+
+```{r}
+summary(data_tidy)
+```
+
+
+
+
+
+
+```{r pressure, echo=FALSE}
+sessionInfo()
+```
+
