@@ -1,5 +1,6 @@
 # Quantitative structure-activity relationship (QSAR)
-I practiced what I have learned from machine learning couses 
+
+As a mother, you do everything possible to protect your baby during the early stages of pregnancy. Despite the protective role of the placenta, many molecules, including those from drugs and even the environment, are present in your bloodstream and manage to cross the placenta. QSAR aims to use machine learning to build models that predict the ability of chemical molecules to cross the placenta.
 
 
 
