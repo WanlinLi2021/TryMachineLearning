@@ -1,4 +1,4 @@
-# TryMachineLearning
+# Quantitative structure-activity relationship (QSAR)
 I practiced what I have learned from machine learning couses 
 
 
