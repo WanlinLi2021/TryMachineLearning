@@ -17,8 +17,8 @@ Preprocession method:
 
 Outliers Detection (In Python): 
 
-	method: DBSCAN Clustering (Density_based spatial clustering of application)
-	Visualisation: PCA
+- method: DBSCAN Clustering (Density_based spatial clustering of application)
+- Visualisation: PCA
 
 Model training (In Python)
 
