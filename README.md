@@ -4,7 +4,7 @@ As a mother, you do everything possible to protect your baby during the early st
 
 <img src="projet_QSAR.jpg" alt="isolated" width="500"/>
 
-Preprocession method: 
+## Preprocession method: 
 
 - step1.Drop variables that have a very low variation (In R)
 - step2.Drop variables that have a high collinearity(>0.75)(In R)
@@ -15,12 +15,12 @@ Preprocession method:
 	
 
 
-Outliers Detection (In Python): 
+## Outliers Detection (In Python): 
 
 - method: DBSCAN Clustering (Density_based spatial clustering of application)
 - Visualisation: PCA
 
-Model training (In Python)
+## Model training (In Python)
 
 - Dummy (as the baseline)
 - Decision Tree
